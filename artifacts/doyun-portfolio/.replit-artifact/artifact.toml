@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "김도윤 포트폴리오"
+description = "김도윤의 실제 학습 경험과 역량을 바탕으로 한 정적 백엔드 개발자 포트폴리오. 바닐라 HTML, CSS, JavaScript로 구성되어 GitHub Pages에 배포할 수 있습니다."
+version = "1.0.0"
+id = "artifacts/doyun-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25149
+
+[services.development]
+run = "pnpm --filter @workspace/doyun-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/doyun-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/doyun-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25149"
+BASE_PATH = "/"
